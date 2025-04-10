@@ -36,4 +36,4 @@ jobs:
           name: TestResults
           path: ./netcore/ExploringSoft/TestExploringSoftApi/TestResults/TestResults.trx
 
-
+#a
