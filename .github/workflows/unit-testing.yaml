@@ -1,12 +1,7 @@
 name: CI - Unit Test
 
 on:
-  push:
-    branches:
-      - main
-  pull_request:
-    branches:
-      - main
+  workflow_dispatch:
 
 jobs:
   build:
@@ -22,18 +17,17 @@ jobs:
           dotnet-version: '8.x'
 
       - name: Restore dependencies
-        run: dotnet restore ./net/ExploringSoft/ExploringSoft.sln
+        run: dotnet restore ./ExploringActions.sln
 
       - name: Build the solution
-        run: dotnet build ./net/ExploringSoft/ExploringSoft.sln --configuration Release --no-restore
+        run: dotnet build ./ExploringActions.sln --configuration Release --no-restore
 
       - name: Run unit tests with report
-        run: dotnet test ./net/ExploringSoft/TestExploringSoftApi/TestExploringSoftApi.csproj --configuration Release --no-build --logger "trx;LogFileName=TestResults.trx"
-        
+        run: dotnet test ./TestProjectExploringActions/TestProjectExploringActions.csproj --configuration Release --no-build --logger "trx;LogFileName=TestResults.trx" --results-directory ./TestProjectExploringActions/TestResults
+
       - name: Upload test results
         uses: actions/upload-artifact@v4
         with:
           name: TestResults
-          path: ./net/ExploringSoft/TestExploringSoftApi/TestResults/TestResults.trx
+          path: ./TestProjectExploringActions/TestResults/TestResults.trx
 
-#a
